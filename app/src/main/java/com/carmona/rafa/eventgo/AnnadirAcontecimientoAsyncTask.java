@@ -47,8 +47,16 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
 
             //sacamos el json
             JSONObject jsonCompleto = new JSONObject(result.toString());
-
             if (jsonCompleto.has("acontecimiento")) {
+                //Hacemos la conexión con la bbdd.
+                BBDDSQLiteHelper usdbh =
+                        new BBDDSQLiteHelper(this.myContext, Environment.getExternalStorageDirectory()+"/Eventgo.db", null, 1);
+                //instancia la db.
+                SQLiteDatabase db = usdbh.getWritableDatabase();
+
+                //Si hemos abierto correctamente la base de datos entramos a comprobar el json
+                if(db != null)
+                {
                 JSONObject jsonAcontecimiento = new JSONObject(jsonCompleto.getString("acontecimiento"));
                 String nombreAcontecimiento = (jsonAcontecimiento.has("nombre") ? jsonAcontecimiento.getString("nombre") : "");
                 String organizador = (jsonAcontecimiento.has("organizador") ? jsonAcontecimiento.getString("nombre") : "");
@@ -62,14 +70,24 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
                 String codPostal = (jsonAcontecimiento.has("codPostal") ? jsonAcontecimiento.getString("codPostal") : "");
                 String provincia = (jsonAcontecimiento.has("provincia") ? jsonAcontecimiento.getString("provincia") : "");
                 String longitud = (jsonAcontecimiento.has("longitud") ? jsonAcontecimiento.getString("longitud") : "");
-                String altitud = (jsonAcontecimiento.has("altitud") ? jsonAcontecimiento.getString("altitud") : "");
+                String latitud = (jsonAcontecimiento.has("latitud") ? jsonAcontecimiento.getString("latitud") : "");
                 String telefono = (jsonAcontecimiento.has("telefono") ? jsonAcontecimiento.getString("telefono") : "");
                 String email = (jsonAcontecimiento.has("email") ? jsonAcontecimiento.getString("email") : "");
                 String web = (jsonAcontecimiento.has("web") ? jsonAcontecimiento.getString("web") : "");
                 String facebook = (jsonAcontecimiento.has("facebook") ? jsonAcontecimiento.getString("facebook") : "");
                 String twitter = (jsonAcontecimiento.has("twitter") ? jsonAcontecimiento.getString("twitter") : "");
                 String instagram = (jsonAcontecimiento.has("instagram") ? jsonAcontecimiento.getString("instagram") : "");
-
+                //Después de comprobar el JSON añadimos a la base de datos la row con el campo ya insertado. si ya existe el id, lo elimina y lo vuelve a insertar.
+                //borramos la base de datos.
+                db.execSQL("DELETE FROM `acontecimiento` WHERE id='"+id+"';");
+                //Insertamos los datos en la tabla Usuarios
+                db.execSQL("INSERT INTO `acontecimiento` (`id`, `nombre`, `organizador`, `descripcion`, " +
+                        "`tipo`, `portada`, `inicio`, `fin`, `direccion`, `localidad`, `cod_postal`, `provincia`," +
+                        " `longitud`, `latitud`, `telefono`, `email`, `web`, `facebook`, `twitter`, `instagram`) " +
+                        "VALUES ('"+id+"', '"+nombreAcontecimiento+"','"+organizador+"', '"+descripcion+"', '"+tipo+"', " +
+                        "'"+portada+"', '"+inicio+"', '"+fin+"', '"+direccion+"', '"+localidad+"', '"+codPostal+"', '"+provincia+"', " +
+                        "'"+longitud+"', '"+latitud+"', '"+telefono+"', '"+email+"', '"+web+"', '"+facebook+"', '"+twitter+"'," +
+                            "'"+instagram+"');");
 
                 MyLog.i("NuevoAcontecimiento-Acon", (jsonAcontecimiento.has("nombre")) ? jsonAcontecimiento.getString("nombre") : "No nombre");
                 //Recuperar array
@@ -80,6 +98,7 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
                         //COMPROBAR QUE EXISTE EL JSONARRAY
                         for (int i = 0; i < jsonEventoArray.length(); i++) {
                         JSONObject jsoneventoObjeto = jsonEventoArray.getJSONObject(i);
+                        String idEvento = (jsoneventoObjeto.has("id") ? jsoneventoObjeto.getString("id") : "");
                         String nombreEvento = (jsoneventoObjeto.has("nombre") ? jsoneventoObjeto.getString("nombre") : "");
                         String descripcionEvento  = (jsoneventoObjeto.has("descripcion") ? jsoneventoObjeto.getString("descripcion") : "");
                         String inicoEvento  = (jsoneventoObjeto.has("inicio") ? jsoneventoObjeto.getString("inicio") : "");
@@ -88,29 +107,16 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
                         String localidadEvento = (jsoneventoObjeto.has("localidad") ? jsoneventoObjeto.getString("localidad") : "");
                         String codPostalEvento = (jsoneventoObjeto.has("codPostal") ? jsoneventoObjeto.getString("codPostal") : "");
                         String provinciaEvento = (jsonAcontecimiento.has("provincia") ? jsonAcontecimiento.getString("provincia"): "");
-                        String longitudEvento = (jsoneventoObjeto.has("longitud") ? jsoneventoObjeto.getString("latitud") : "");
-                        String altitudEvento = (jsonAcontecimiento.has("altitud") ? jsonAcontecimiento.getString("altitud"): "");
-
+                        String longitudEvento = (jsoneventoObjeto.has("longitud") ? jsoneventoObjeto.getString("longitud") : "");
+                        String latitudEvento = (jsonAcontecimiento.has("latitud") ? jsonAcontecimiento.getString("latitud"): "");
+                            db.execSQL("INSERT INTO `evento` (`id`, `id_acontecimiento`, `nombre`, `descripcion`, `inicio`, `fin`," +
+                                    " `direccion`, `localidad`, `cod_postal`, `provincia`, `longitud`, `latitud`) VALUES" +
+                                    "('"+idEvento+"', '"+id+"1, 'evento_01', 'es el evento que corresponde al acontecimiento 01', '2016-10-01 00:00:00', " +
+                                    "'2016-10-03 00:00:00', NULL, 'Montilla', 14550, 'Cordoba', NULL, NULL),");
                         MyLog.i("NuevoAcontecimiento-Event", jsoneventoObjeto.getString("nombre"));
 
                     }
                 }
-                BBDDSQLiteHelper usdbh =
-                        new BBDDSQLiteHelper(this.myContext, Environment.getExternalStorageDirectory()+"/Eventgo.db", null, 1);
-
-                SQLiteDatabase db = usdbh.getWritableDatabase();
-
-                //Si hemos abierto correctamente la base de datos
-                if(db != null)
-                {
-                    //Insertamos los datos en la tabla Usuarios
-                    db.execSQL("INSERT INTO `acontecimiento` (`id`, `nombre`, `organizador`, `descripcion`, " +
-                            "`tipo`, `portada`, `inicio`, `fin`, `direccion`, `localidad`, `cod_postal`, `provincia`," +
-                            " `longitud`, `altitud`, `telefono`, `email`, `web`, `facebook`, `twitter`, `instagram`) " +
-                            "VALUES ('"+id+"', '"+nombreAcontecimiento+"','"+organizador+"', '"+descripcion+"', '"+tipo+"', " +
-                            "'"+portada+"', '"+inicio+"', '"+fin+"', '"+direccion+"', '"+localidad+"', '"+codPostal+"', '"+provincia+"', " +
-                            "'"+longitud+"', '"+altitud+"', '"+telefono+"', '"+email+"', '"+web+"', '"+facebook+"', '"+twitter+"'," +
-                            "'"+instagram+"');");
                 }
 
                 //Cerramos la base de datos

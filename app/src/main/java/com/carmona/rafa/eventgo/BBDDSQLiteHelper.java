@@ -22,7 +22,7 @@ public class BBDDSQLiteHelper extends SQLiteOpenHelper {
             "  `cod_postal` int(5) DEFAULT NULL," +
             "  `provincia` varchar(256) DEFAULT NULL," +
             "  `longitud` float DEFAULT NULL," +
-            "  `altitud` float DEFAULT NULL," +
+            "  `latitud` float DEFAULT NULL," +
             "  `telefono` int(9) DEFAULT NULL," +
             "  `email` varchar(256) DEFAULT NULL," +
             "  `web` varchar(256) DEFAULT NULL," +
