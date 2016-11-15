@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_listado_acontecimiento"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.carmona.rafa.eventgo.ListadoAcontecimientoActivity"
+    tools:showIn="@layout/activity_listado_acontecimiento">
+
+
+    <TextView
+        android:text="Lista:"
+        android:layout_width="wrap_content"
+        android:layout_height="94dp"
+        android:id="@+id/textView3"
+        android:layout_weight="0.49" />
+
+    <android.support.v7.widget.RecyclerView
+android:id="@+id/recyclerView"
+android:layout_width="355dp"
+android:layout_height="461dp"
+android:scrollbars="vertical" />
+
+
+</LinearLayout>

@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Event GO</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_listado_acontecimiento">ListadoAcontecimientoActivity</string>
+    <string name="action_settings">Configuracion</string>
+    <string name="about_us">Sobre nosotros</string>
+    <string name="title_activity_annadir_acontecimiento">AnnadirAcontecimientoActivity</string>
+</resources>
