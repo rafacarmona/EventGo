@@ -101,7 +101,7 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
                         String idEvento = (jsoneventoObjeto.has("id") ? jsoneventoObjeto.getString("id") : "");
                         String nombreEvento = (jsoneventoObjeto.has("nombre") ? jsoneventoObjeto.getString("nombre") : "");
                         String descripcionEvento  = (jsoneventoObjeto.has("descripcion") ? jsoneventoObjeto.getString("descripcion") : "");
-                        String inicoEvento  = (jsoneventoObjeto.has("inicio") ? jsoneventoObjeto.getString("inicio") : "");
+                        String inicioEvento  = (jsoneventoObjeto.has("inicio") ? jsoneventoObjeto.getString("inicio") : "");
                         String finEvento = (jsoneventoObjeto.has("fin") ? jsoneventoObjeto.getString("fin") : "");
                         String direccionEvento = (jsoneventoObjeto.has("direccion") ? jsoneventoObjeto.getString("direccion") : "");
                         String localidadEvento = (jsoneventoObjeto.has("localidad") ? jsoneventoObjeto.getString("localidad") : "");
@@ -111,7 +111,7 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
                         String latitudEvento = (jsonAcontecimiento.has("latitud") ? jsonAcontecimiento.getString("latitud"): "");
                             db.execSQL("INSERT INTO `evento` (`id`, `id_acontecimiento`, `nombre`, `descripcion`, `inicio`, `fin`," +
                                     " `direccion`, `localidad`, `cod_postal`, `provincia`, `longitud`, `latitud`) VALUES" +
-                                    "('"+idEvento+"', '"+id+"1, 'evento_01', 'es el evento que corresponde al acontecimiento 01', '2016-10-01 00:00:00', " +
+                                    "('"+idEvento+"', '"+id+"', '"+nombreEvento+"', '"+descripcionEvento+"', '"+inicioEvento+"', " +
                                     "'2016-10-03 00:00:00', NULL, 'Montilla', 14550, 'Cordoba', NULL, NULL),");
                         MyLog.i("NuevoAcontecimiento-Event", jsoneventoObjeto.getString("nombre"));
 
