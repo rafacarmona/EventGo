@@ -34,12 +34,15 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
         StringBuilder result = new StringBuilder();
 
         try {
+            //Conseguimos la conexión con nuestra el json, mandando un id enviado por el usuario en una caja de texto.
             URL url = new URL("http://mieventorafa.hol.es/api/v1/acontecimiento/"+id);
+            //Abrimos la conexión http con la url que le pasamos.
             urlConnection = (HttpURLConnection) url.openConnection();
+            //creamos la entrada del stream con un nuevo buffere pasandole la conexión
             InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-
+            //Leemos el el steam con un buffer.
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
+            //Mientras haya Stream va leyendo y añadiendo en line.
             String line;
             while ((line = reader.readLine()) != null) {
                 result.append(line);
@@ -111,8 +114,9 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
                         String latitudEvento = (jsonAcontecimiento.has("latitud") ? jsonAcontecimiento.getString("latitud"): "");
                             db.execSQL("INSERT INTO `evento` (`id`, `id_acontecimiento`, `nombre`, `descripcion`, `inicio`, `fin`," +
                                     " `direccion`, `localidad`, `cod_postal`, `provincia`, `longitud`, `latitud`) VALUES" +
-                                    "('"+idEvento+"', '"+id+"', '"+nombreEvento+"', '"+descripcionEvento+"', '"+inicioEvento+"', " +
-                                    "'2016-10-03 00:00:00', NULL, 'Montilla', 14550, 'Cordoba', NULL, NULL),");
+                                    "('"+idEvento+"', '"+id+"', '"+nombreEvento+"', '"+descripcionEvento+"', '"+inicioEvento+"', '" +
+                                    finEvento+"', '"+ direccionEvento+"', '"+localidadEvento+"', '"+ codPostalEvento+"', '"+ provinciaEvento+"', '"+
+                                    longitudEvento+"', '"+ latitudEvento+"')");
                         MyLog.i("NuevoAcontecimiento-Event", jsoneventoObjeto.getString("nombre"));
 
                     }
