@@ -59,21 +59,22 @@ public class AnnadirAcontecimientoActivity extends AppCompatActivity {
                     String editTextNombreText = editTextNombre.getText().toString();
                     int longitudTexto = editTextNombreText.length();
                     if (longitudTexto == 0) {
-                        Snackbar.make(view, "Furula!", Snackbar.LENGTH_LONG)
+                        Snackbar.make(view, "Error!", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                    }
-                    int permissionCheck = ContextCompat.checkSelfPermission(myContext, Manifest.permission.INTERNET);
-
-                    if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                        new AnnadirAcontecimientoAsyncTask(editTextNombre.getText().toString(), myContext, progressbar).execute();
                     } else {
-                        // Explicar permiso
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(AnnadirAcontecimientoActivity.this, Manifest.permission.INTERNET)) {
-                            Toast.makeText(myContext, "El permiso es necesario para utilizar el internet.", Toast.LENGTH_SHORT).show();
-                        }
+                        int permissionCheck = ContextCompat.checkSelfPermission(myContext, Manifest.permission.INTERNET);
+
+                        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                            new AnnadirAcontecimientoAsyncTask(editTextNombre.getText().toString(), myContext, progressbar).execute();
+                        } else {
+                            // Explicar permiso
+                            if (ActivityCompat.shouldShowRequestPermissionRationale(AnnadirAcontecimientoActivity.this, Manifest.permission.INTERNET)) {
+                                Toast.makeText(myContext, "El permiso es necesario para utilizar el internet.", Toast.LENGTH_SHORT).show();
+                            }
 
 // Solicitar el permiso
-                        ActivityCompat.requestPermissions(AnnadirAcontecimientoActivity.this, new String[]{Manifest.permission.INTERNET}, REQUEST_CODE_INTERNET);
+                            ActivityCompat.requestPermissions(AnnadirAcontecimientoActivity.this, new String[]{Manifest.permission.INTERNET}, REQUEST_CODE_INTERNET);
+                        }
                     }
                 }
 
