@@ -7,4 +7,5 @@
     <string name="action_settings">Configuracion</string>
     <string name="about_us">Sobre nosotros</string>
     <string name="title_activity_annadir_acontecimiento">AnnadirAcontecimientoActivity</string>
+    <string name="title_activity_ver_acontecimiento">VerAcontecimientoActivity</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.carmona.rafa.eventgo;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -156,6 +157,12 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
 
     @Override
     protected void onPostExecute(String result) {
+        SharedPreferences prefs =
+                myContext.getSharedPreferences("Ajustes",Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("id", id);
+        editor.commit();
         progressbar.setVisibility(View.INVISIBLE);
     }
 }
