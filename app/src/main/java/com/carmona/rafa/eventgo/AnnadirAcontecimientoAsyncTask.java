@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,9 +26,17 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
     HttpURLConnection urlConnection;
     String id;
     Context myContext;
-    public AnnadirAcontecimientoAsyncTask(String id, Context myContext){
+    ProgressBar progressbar;
+    public AnnadirAcontecimientoAsyncTask(String id, Context myContext, ProgressBar progressbar){
         this.id = id;
         this.myContext = myContext;
+        this.progressbar = progressbar;
+    }
+
+
+    @Override
+    protected void onPreExecute() {
+        progressbar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -82,7 +92,7 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
                 String instagram = (jsonAcontecimiento.has("instagram") ? jsonAcontecimiento.getString("instagram") : "");
                 //Después de comprobar el JSON añadimos a la base de datos la row con el campo ya insertado. si ya existe el id, lo elimina y lo vuelve a insertar.
                 //borramos la base de datos.
-                db.execSQL("DELETE FROM `acontecimiento` WHERE id='"+id+"';");
+                    db.execSQL("DELETE FROM `acontecimiento` WHERE id='"+id+"';");
                 //Insertamos los datos en la tabla Usuarios
                 db.execSQL("INSERT INTO `acontecimiento` (`id`, `nombre`, `organizador`, `descripcion`, " +
                         "`tipo`, `portada`, `inicio`, `fin`, `direccion`, `localidad`, `cod_postal`, `provincia`," +
@@ -112,6 +122,8 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
                         String provinciaEvento = (jsonAcontecimiento.has("provincia") ? jsonAcontecimiento.getString("provincia"): "");
                         String longitudEvento = (jsoneventoObjeto.has("longitud") ? jsoneventoObjeto.getString("longitud") : "");
                         String latitudEvento = (jsonAcontecimiento.has("latitud") ? jsonAcontecimiento.getString("latitud"): "");
+                            //DELETE DEL EVENTO
+                            db.execSQL("DELETE FROM `evento` WHERE id='"+idEvento+"';");
                             db.execSQL("INSERT INTO `evento` (`id`, `id_acontecimiento`, `nombre`, `descripcion`, `inicio`, `fin`," +
                                     " `direccion`, `localidad`, `cod_postal`, `provincia`, `longitud`, `latitud`) VALUES" +
                                     "('"+idEvento+"', '"+id+"', '"+nombreEvento+"', '"+descripcionEvento+"', '"+inicioEvento+"', '" +
@@ -144,6 +156,6 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
 
     @Override
     protected void onPostExecute(String result) {
-        MyLog.d("onPostExecute", result);
+        progressbar.setVisibility(View.INVISIBLE);
     }
 }
