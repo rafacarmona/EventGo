@@ -27,9 +27,16 @@ public class ListadoAcontecimientoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listado_acontecimiento);
+        //creamos toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        //boton flotante. este boton nos lleva a annadiracontecimiento.
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,15 +131,23 @@ public class ListadoAcontecimientoActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_listado_acontecimientos, menu);
         return true;
     }
-
-    public boolean onOptionsItemSelected(MenuItem item) {
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item){
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                Log.i("ActionBar", "Settings!");
+            case R.id.about_us:
+                Intent intent = new Intent(this, aboutUs.class);
+                this.startActivity(intent);
+                break;
 
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+
+        return true;
+    }
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        //System.exit(0);
     }
 }

@@ -1,11 +1,13 @@
 package com.carmona.rafa.eventgo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -28,11 +30,15 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
     HttpURLConnection urlConnection;
     String id;
     Context myContext;
+    View boton;
     ProgressBar progressbar;
-    public AnnadirAcontecimientoAsyncTask(String id, Context myContext, ProgressBar progressbar){
+    //para comprobar si existe el acontecimiento
+    boolean aconExists = true;
+    public AnnadirAcontecimientoAsyncTask(String id, Context myContext, ProgressBar progressbar, View boton){
         this.id = id;
         this.myContext = myContext;
         this.progressbar = progressbar;
+        this.boton = boton;
     }
 
 
@@ -141,6 +147,7 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
                 db.close();
             } else {
                 MyLog.i("NuevoAcontecimiento-Acon", "error");
+                this.aconExists = false;
             }
 
             //Fin
@@ -158,13 +165,23 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
 
     @Override
     protected void onPostExecute(String result) {
-        SharedPreferences prefs =
-                myContext.getSharedPreferences("Ajustes",Context.MODE_PRIVATE);
+//si existe se muestra, sino muestra mensaje error y se pone invisible la progrress Bar
+        if(aconExists){
+            SharedPreferences prefs =
+                    myContext.getSharedPreferences("Ajustes",Context.MODE_PRIVATE);
 
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("id", id);
-        editor.commit();
-        myContext.startActivity(new Intent(myContext, VerAcontecimientoActivity.class));
-        progressbar.setVisibility(View.INVISIBLE);
-    }
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putString("id", id);
+            editor.commit();
+            myContext.startActivity(new Intent(myContext, VerAcontecimientoActivity.class));
+            //cerrar el activity.
+            ((Activity) myContext).finish();
+            progressbar.setVisibility(View.INVISIBLE);
+        }else{
+            //le pasamos la vista del boton y mandamos el mensaje
+            Snackbar.make(boton, "id de acontecimiento no encontradada.", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            progressbar.setVisibility(View.INVISIBLE);
+        }
+        }
 }

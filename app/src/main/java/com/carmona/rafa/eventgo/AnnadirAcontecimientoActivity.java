@@ -31,18 +31,25 @@ public class AnnadirAcontecimientoActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    private static final String ACTIVITY = "StartCreate";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_annadir_acontecimiento);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         myContext = this;
         //Barra de cargar
         final ProgressBar progressbar=(ProgressBar) findViewById(R.id.progressBarAnnadir);
-        Button boton = (Button) findViewById(R.id.button_Annadir);
+        final Button boton = (Button) findViewById(R.id.button_Annadir);
         boton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +72,7 @@ public class AnnadirAcontecimientoActivity extends AppCompatActivity {
                         int permissionCheck = ContextCompat.checkSelfPermission(myContext, Manifest.permission.INTERNET);
 
                         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                            new AnnadirAcontecimientoAsyncTask(editTextNombre.getText().toString(), myContext, progressbar).execute();
+                            new AnnadirAcontecimientoAsyncTask(editTextNombre.getText().toString(), myContext, progressbar, boton).execute();
                         } else {
                             // Explicar permiso
                             if (ActivityCompat.shouldShowRequestPermissionRationale(AnnadirAcontecimientoActivity.this, Manifest.permission.INTERNET)) {
@@ -108,7 +115,7 @@ public class AnnadirAcontecimientoActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
+        MyLog.d(ACTIVITY,"Estamos en onStart de annadie acontecimiento"); //creación del log del onStart
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
@@ -118,7 +125,7 @@ public class AnnadirAcontecimientoActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-
+        MyLog.d(ACTIVITY,"Estamos en ON STOP"); //creación del log del onStart
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
@@ -135,4 +142,33 @@ public class AnnadirAcontecimientoActivity extends AppCompatActivity {
         }
         return true;
     }
+    /** Logs */
+
+    @Override
+    protected void onResume() {
+        MyLog.d(ACTIVITY,"Estamos en onResume"); //creación del log del onResume
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        MyLog.d(ACTIVITY,"Estamos en onPause"); //creación del log del onPause
+        super.onPause();
+    }
+
+    @Override
+    protected void onRestart() {
+        MyLog.d(ACTIVITY,"Estamos en onRestart"); //creación del log del onRestart
+        super.onRestart();
+    }
+
+    @Override
+    protected void onDestroy() {
+        MyLog.d(ACTIVITY,"Estamos en onDestroy"); //creación del log del onDestroy
+        // TODO Auto-generated method stub
+        super.onDestroy();
+    }
+
+    /**fin Logs*/
+
 }
