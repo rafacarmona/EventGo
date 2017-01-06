@@ -172,7 +172,9 @@ public class AnnadirAcontecimientoAsyncTask extends AsyncTask<String, String, St
 
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("id", id);
+            //hacemos el commit
             editor.commit();
+            //Intentar corregir esto. iniciamos nuevo activity.
             myContext.startActivity(new Intent(myContext, VerAcontecimientoActivity.class));
             //cerrar el activity.
             ((Activity) myContext).finish();

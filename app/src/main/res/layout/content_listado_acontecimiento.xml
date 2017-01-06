@@ -23,10 +23,9 @@
         android:layout_weight="0.49" />
 
     <android.support.v7.widget.RecyclerView
-android:id="@+id/recyclerView"
-android:layout_width="355dp"
-android:layout_height="461dp"
-android:scrollbars="vertical" />
-
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
 
 </LinearLayout>

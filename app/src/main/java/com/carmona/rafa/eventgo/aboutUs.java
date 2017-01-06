@@ -13,11 +13,12 @@ public class aboutUs extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_us);
+        //toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarAboutUs);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
+            @Override //barra de volver.
             public void onClick(View v) {
                 onBackPressed();
             }
