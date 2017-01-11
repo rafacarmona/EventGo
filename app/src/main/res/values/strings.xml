@@ -9,4 +9,7 @@
     <string name="title_activity_annadir_acontecimiento">AnnadirAcontecimientoActivity</string>
     <string name="title_activity_ver_acontecimiento">VerAcontecimientoActivity</string>
     <string name="title_activity_about_us">aboutUs</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

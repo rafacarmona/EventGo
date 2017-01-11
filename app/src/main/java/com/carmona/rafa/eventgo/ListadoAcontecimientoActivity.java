@@ -185,16 +185,21 @@ public class ListadoAcontecimientoActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     int position = recyclerView.getChildAdapterPosition(v);
                     // Acción al pulsar el elemento
-                    //Para pasar los datos al fichero de Preferencias
+                    //Para pasar los datos al fichero de Ajustes
                     SharedPreferences prefs =
-                            getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
+                            getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putString("id", items.get(position).getId());
+                    System.out.println(items.get(position));
+                    System.out.println(items.get(position).getId());
                     editor.commit();
                     //abrimos la nueva actividad
                     startActivity(new Intent(ListadoAcontecimientoActivity.this, VerAcontecimientoActivity.class));
                     MyLog.d(ACTIVITY, "Click en RecyclerView");
-               }
+
+                    /*Toast toast = Toast.makeText(ListadoAcontecimientosActivity.this, " ID:" + String.valueOf(position) + " ID:" + items.get(position).getId() + " Nombre: " + items.get(position).getNombre(), Toast.LENGTH_SHORT);
+                    toast.show();*/
+                }
             });
 
             // Se asocia el Adaptador al RecyclerView

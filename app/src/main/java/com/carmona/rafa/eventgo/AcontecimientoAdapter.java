@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 
 /**
- * Created by jesus on 18/10/2016.
+ * Created by Rafa on 18/10/2016.
  */
 //carga pagginada la lista de acontecimientos
 public class AcontecimientoAdapter
