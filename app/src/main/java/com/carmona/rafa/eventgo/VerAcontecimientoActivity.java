@@ -54,9 +54,7 @@ public class VerAcontecimientoActivity extends AppCompatActivity {
 
         SharedPreferences prefs =
                 getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
-        String id = prefs.getString("id", "0");
-        // TextView tv=(TextView) findViewById(R.id.textViewIDAcontecimiento);
-        // tv.setText(id);
+        String id = prefs.getString("id", "Error con la id.");
         //leer de la base de datos.
         BBDDSQLiteHelper usdbh =
                 new BBDDSQLiteHelper(this, Environment.getExternalStorageDirectory()+"/Eventgo.db", null, 1);

@@ -1,5 +1,10 @@
 package com.carmona.rafa.eventgo;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,10 +18,19 @@ public class EventosActivity extends AppCompatActivity implements listadoEventos
 
         if(findViewById(R.id.unique_fragment) != null){
             listadoEventosFragment listadoFrag = new listadoEventosFragment();
+            //Shared Preferences
 
+            SharedPreferences prefs =
+                    getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
+            String id = prefs.getString("id", "Error con la id.");
+            //Bundle
+            Bundle args = new Bundle();
+            args.putString("id", id);
+            listadoFrag.setArguments(args);
             getSupportFragmentManager().beginTransaction().add(R.id.unique_fragment, listadoFrag).commit();
         }
     }
+
 
     public void onFragmentInteraction(int position){
         mostrarEventoFragment mostrarEventFrag = (mostrarEventoFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMostrarEvento);
