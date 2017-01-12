@@ -39,6 +39,19 @@ public class VerAcontecimientoActivity extends AppCompatActivity {
             }
         });
 
+
+        /**
+         * Boton flotante
+         */
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabMostrarAcon);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), EventosActivity.class));
+            }
+        });
+
         SharedPreferences prefs =
                 getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
         String id = prefs.getString("id", "0");

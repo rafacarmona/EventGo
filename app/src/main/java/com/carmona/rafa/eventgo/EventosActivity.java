@@ -28,7 +28,7 @@ public class EventosActivity extends AppCompatActivity implements listadoEventos
             Bundle args = new Bundle();
             args.putInt("position", position);
 
-            newmostrarEventFrag.setArguments(null);
+            newmostrarEventFrag.setArguments(args);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.unique_fragment, newmostrarEventFrag);
             transaction.addToBackStack(null);

@@ -196,9 +196,6 @@ public class ListadoAcontecimientoActivity extends AppCompatActivity {
                     //abrimos la nueva actividad
                     startActivity(new Intent(ListadoAcontecimientoActivity.this, VerAcontecimientoActivity.class));
                     MyLog.d(ACTIVITY, "Click en RecyclerView");
-
-                    /*Toast toast = Toast.makeText(ListadoAcontecimientosActivity.this, " ID:" + String.valueOf(position) + " ID:" + items.get(position).getId() + " Nombre: " + items.get(position).getNombre(), Toast.LENGTH_SHORT);
-                    toast.show();*/
                 }
             });
 

@@ -16,6 +16,7 @@
         <activity
             android:name=".LogoActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <!-- este codigo es el que hace que sea el main-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +47,8 @@
             android:name=".aboutUs"
             android:label="@string/title_activity_about_us"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".EventosActivity"></activity>
+        <activity android:name=".EventosActivity">
+        </activity>
     </application>
 
 </manifest>
