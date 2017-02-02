@@ -18,21 +18,11 @@ public class EventosActivity extends AppCompatActivity  implements ListadoEvento
 
 
         if(findViewById(R.id.unique_fragment) != null){
-            if (savedInstanceState != null) {
-                return;
+            if (savedInstanceState == null) {
+                ListadoEventosFragment listadoFrag = new ListadoEventosFragment();
+
+                getSupportFragmentManager().beginTransaction().add(R.id.unique_fragment, listadoFrag).commit();
             }
-            ListadoEventosFragment listadoFrag = new ListadoEventosFragment();
-            //recogemos share preferer
-            SharedPreferences prefs =
-                    getSharedPreferences("Preferencias", Context.MODE_PRIVATE);
-            //recogemos
-            String id = prefs.getString("id", "Error Con el SharePreferences");
-            Bundle args = new Bundle();
-            args.putString("id", id);
-
-            listadoFrag.setArguments(args);
-
-            getSupportFragmentManager().beginTransaction().add(R.id.unique_fragment, listadoFrag).commit();
         }
 
     }

@@ -111,7 +111,10 @@ public class ListadoAcontecimientoActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, aboutUs.class);
                 this.startActivity(intent);
                 break;
-
+            case R.id.configuration:
+                Intent intent2 = new Intent(this, SettingsActivity.class);
+                this.startActivity(intent2);
+                break;
             default:
                 return super.onOptionsItemSelected(item);
         }

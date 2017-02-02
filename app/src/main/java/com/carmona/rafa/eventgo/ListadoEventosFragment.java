@@ -1,6 +1,7 @@
 package com.carmona.rafa.eventgo;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
@@ -21,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -34,7 +36,7 @@ public class ListadoEventosFragment extends ListFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private static final String ARG_PARAM3 = "id";
+    //  private static final String ARG_PARAM3 = "id";
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -64,7 +66,7 @@ public class ListadoEventosFragment extends ListFragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-        args.putString(ARG_PARAM3,id_Acon);
+        //      args.putString(ARG_PARAM3,id_Acon);
 
         fragment.setArguments(args);
         return fragment;
@@ -77,7 +79,7 @@ public class ListadoEventosFragment extends ListFragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-            id_Acon = getArguments().getString(ARG_PARAM3);
+//            id_Acon = getArguments().getString(ARG_PARAM3);
            /* BaseDeDatosSQLiteHelper usdbh =
                     new BaseDeDatosSQLiteHelper(getActivity(), Environment.getExternalStorageDirectory() + "/Eventonline.db", null, 1);
             SQLiteDatabase db = usdbh.getReadableDatabase();
@@ -135,6 +137,10 @@ public class ListadoEventosFragment extends ListFragment {
         items.add(new EventoItem("10", "Segundo acontecimiento"));
         eventosAdapter = new EventoAdapter(getActivity(), layout, items);
         listView.setAdapter(eventosAdapter);*/
+        SharedPreferences prefs =
+                getActivity().getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
+        //recogemos
+        id_Acon = prefs.getString("id", "Error Con el SharePreferences");
         BBDDSQLiteHelper usdbh =
                 new BBDDSQLiteHelper(getActivity(), Environment.getExternalStorageDirectory() + "/Eventgo.db", null, 1);
         SQLiteDatabase db = usdbh.getReadableDatabase();

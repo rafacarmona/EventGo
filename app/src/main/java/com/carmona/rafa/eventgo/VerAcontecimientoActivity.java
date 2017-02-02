@@ -24,10 +24,13 @@ public class VerAcontecimientoActivity extends AppCompatActivity {
        private static final String ACTIVITY = "StartCreate";
     private TextView tv;
     private ImageView iv;
+    private Context myContext;
+    private String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_acontecimiento);
+        myContext = this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
@@ -43,18 +46,32 @@ public class VerAcontecimientoActivity extends AppCompatActivity {
         /**
          * Boton flotante
          */
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabMostrarAcon);
+        //recogemos share preferer
+        SharedPreferences prefs =
+                getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
+        //recogemos
+        id = prefs.getString("id", "Error Con el SharePreferences");
+        //leer de la base de datos.
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fabMostrarAcon);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), EventosActivity.class));
+                BBDDSQLiteHelper  usdbh =
+                        new BBDDSQLiteHelper (myContext, Environment.getExternalStorageDirectory()+"/Eventgo.db", null, 1);
+                //instancia la db.
+                SQLiteDatabase db = usdbh.getReadableDatabase();
+
+                String[] argsID = new String[] {id};
+                Cursor cursor = db.rawQuery(" SELECT * FROM evento WHERE id=? ", argsID);
+                //Nos aseguramos de que existe al menos un registro
+                if (cursor.moveToFirst()) {
+                    startActivity(new Intent(getApplicationContext(), EventosActivity.class));
+                }else{
+                    Snackbar.make(view, "No hay eventos", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
-
-        SharedPreferences prefs =
-                getSharedPreferences("Ajustes", Context.MODE_PRIVATE);
-        String id = prefs.getString("id", "Error con la id.");
         //leer de la base de datos.
         BBDDSQLiteHelper usdbh =
                 new BBDDSQLiteHelper(this, Environment.getExternalStorageDirectory()+"/Eventgo.db", null, 1);

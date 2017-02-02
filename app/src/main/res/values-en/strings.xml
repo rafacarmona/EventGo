@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Event GO</string>
+    <string name="about_us">About Us</string>
+    <string name="action_settings">Configuration</string>
+    <string name="dummy_button">button</string>
+    <string name="hello_blank_fragment"></string>
+    <string name="language">language</string>
+    <string name="languageDescription">Choose your Language</string>
+    <string name="title_activity_listado_acontecimiento">ListOcurrence</string>
+    <string name="title_activity_annadir_acontecimiento">AddOcurrence</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="title_activity_ver_acontecimiento">See Ocurrences</string>
+    <string name="verIdAcontecimiento">Ocurrence ID</string>
+</resources>
