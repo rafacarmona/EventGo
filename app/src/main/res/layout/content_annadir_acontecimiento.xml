@@ -21,11 +21,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/editText_nombre"
-        android:hint="Nombre Acontecimiento"
+        android:hint="@string/OcurrenceName"
         android:inputType="number" />
 
     <Button
-        android:text="Añadir"
+        android:text="@string/AddButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"

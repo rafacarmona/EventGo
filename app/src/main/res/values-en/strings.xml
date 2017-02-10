@@ -12,4 +12,15 @@
     <string name="title_activity_settings">Settings</string>
     <string name="title_activity_ver_acontecimiento">See Ocurrences</string>
     <string name="verIdAcontecimiento">Ocurrence ID</string>
+    <string name="DeveloperLicense">License</string>
+    <string name="DeveloperAge">Age</string>
+    <string name="DeveloperName">Name</string>
+    <string name="Settings">Settings</string>
+    <string name="DeveloperNumber">Number</string>
+    <string name="maps">maps</string>
+    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_ringtone_silent">Silent</string>
+    <string name="pref_title_add_friends_to_messages">Add friends</string>
+    <string name="OcurrenceName">Ocurrence Name</string>
+    <string name="AddButton">Add</string>
 </resources>

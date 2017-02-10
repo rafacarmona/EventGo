@@ -5,6 +5,6 @@
     <header
         android:fragment="com.carmona.rafa.eventgo.SettingsActivity$GeneralPreferenceFragment"
         android:icon="@drawable/icono_aplicacion"
-        android:title="@string/language" />
+        android:title="@string/Settings" />
 
 </preference-headers>

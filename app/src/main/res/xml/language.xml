@@ -6,5 +6,11 @@
         android:summary="language"
         android:dialogTitle="@string/languageDescription"
         android:entries="@array/Language"
+        android:defaultValue="en"
         android:entryValues="@array/LanguageCode" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:title="@string/saveOcurrence"
+        android:key="guardarAcontecimiento" />
+
 </PreferenceScreen>

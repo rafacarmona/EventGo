@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class VerAcontecimientoActivity extends AppCompatActivity {
     private ImageView iv;
     private Context myContext;
     private String id;
+    private Button boton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +43,14 @@ public class VerAcontecimientoActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        boton = (Button) findViewById(R.id.mapas);
 
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(myContext, MapasActivity.class));
+            }
+        });
 
         /**
          * Boton flotante
@@ -126,6 +135,9 @@ public class VerAcontecimientoActivity extends AppCompatActivity {
                 if(!facebook.isEmpty()) crearElementoVista(facebook, R.drawable.ic_email_black_24dp, layoutPrincipal);
                 if(!twitter.isEmpty()) crearElementoVista(twitter, R.drawable.ic_email_black_24dp, layoutPrincipal);
                 if(!instagram.isEmpty()) crearElementoVista(instagram, R.drawable.ic_email_black_24dp,layoutPrincipal);
+                if(longitud.isEmpty() || latitud.isEmpty()){
+                    boton.setVisibility(View.INVISIBLE);
+                }
             }while(cursor.moveToNext());
         }
     }
@@ -192,13 +204,13 @@ public class VerAcontecimientoActivity extends AppCompatActivity {
     }
 
     /**fin Logs*/
-
+/*
     @Override
     public void onBackPressed() {
         this.startActivity(new Intent(this, ListadoAcontecimientoActivity.class));
         this.finish();
     }
-
+*/
     @Override
     public boolean onNavigateUp() {
         this.startActivity(new Intent(this, ListadoAcontecimientoActivity.class));
